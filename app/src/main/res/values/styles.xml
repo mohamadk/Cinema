@@ -16,7 +16,6 @@
     </style>
     <style name="Small" parent="Base.TextAppearance.AppCompat.Small">
         <item name="android:textSize">13sp</item>
-
     </style>
 
 </resources>

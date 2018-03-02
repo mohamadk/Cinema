@@ -40,6 +40,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.bind(items.get(position));
     }
 
+
+
     @Override
     public int getItemCount() {
         return items.size();

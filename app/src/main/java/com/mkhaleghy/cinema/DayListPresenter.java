@@ -29,7 +29,7 @@ public class DayListPresenter implements DayListContract.Presenter{
     private ArrayList<Element> fetchItems() {
         ArrayList<Element> items=new ArrayList<>();
         for (int i = 0; i < 25; i++) {
-            items.add(new Movie(R.drawable.kong,"Kong Skull Island","by jordan Vogt-Roberts",5,"Drama| Adventures|","7:10 PM"));
+            items.add(new Movie(R.drawable.kong,"Kong Skull Island","by jordan Vogt-Roberts",5,"Drama | Adventures |","7:10 PM"));
         }
         return items;
     }

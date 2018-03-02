@@ -9,7 +9,6 @@ import com.mkhaleghy.cinema.adapter.Element;
 public class Movie implements Element {
     public static final int MOVIE=0;
     public int icon;
-
     public String title;
     public String subtitle;
     public float rate;

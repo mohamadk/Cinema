@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import com.mkhaleghy.cinema.adapter.Element;
 import com.mkhaleghy.cinema.adapter.DayListContract;
@@ -38,6 +39,7 @@ public class DayListFragment extends BaseFragment implements DayListContract.Vie
     private View mainView;
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
+    private RecyclerItemAnimator recyclerItemAnimator;
     private OnFragmentInteractionListener mListener;
     DayListContract.Presenter presenter;
 
@@ -67,8 +69,33 @@ public class DayListFragment extends BaseFragment implements DayListContract.Vie
         presenter=new DayListPresenter(this);
 
         recyclerView = mainView.findViewById(R.id.rv_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter = new RecyclerAdapter(getActivity()));
+
+        recyclerItemAnimator = new RecyclerItemAnimator(
+                recyclerView
+                ,layoutManager
+                ,.5f
+        );
+
+        SeekBar seekBar=mainView.findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                recyclerItemAnimator.animate(progress/100f);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         presenter.start();
 
@@ -97,20 +124,12 @@ public class DayListFragment extends BaseFragment implements DayListContract.Vie
         adapter.bindItems(movies);
     }
 
-    
+    public void animate(float fraction){
+        recyclerItemAnimator.animate(fraction);
+    }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
     }
 }
