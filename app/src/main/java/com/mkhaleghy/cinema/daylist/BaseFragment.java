@@ -1,4 +1,4 @@
-package com.mkhaleghy.cinema;
+package com.mkhaleghy.cinema.daylist;
 
 
 import android.support.v4.app.Fragment;

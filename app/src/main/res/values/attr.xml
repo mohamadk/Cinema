@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RampImageView">
+        <attr name="riv_rampHeight" format="dimension"/>
+        <attr name="riv_rampStartPercent" format="float"/>
+        <attr name="riv_rampColor" format="color"/>
+    </declare-styleable>
+
+</resources>

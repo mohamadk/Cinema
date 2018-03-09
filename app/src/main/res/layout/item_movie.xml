@@ -7,15 +7,16 @@
     android:layout_gravity="center"
     android:layout_marginBottom="5dp"
     android:layout_marginTop="5dp"
+
     tools:background="@color/amber_200">
 
     <android.support.v7.widget.CardView
-        app:cardBackgroundColor="#ffffed"
         android:id="@+id/cv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="30dp"
         android:layout_marginTop="16dp"
+        app:cardBackgroundColor="#ffffed"
         app:cardElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/sp_startOfCard"
@@ -80,13 +81,15 @@
 
         <TextView
             android:id="@+id/tv_genre"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="start|center_vertical"
             android:text="Drama| Adventures|"
             android:textAppearance="@style/Small"
             android:textColor="#778bae"
+            android:lines="1"
+            android:layout_marginRight="50dp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -103,38 +106,55 @@
         android:id="@+id/iv_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
         android:elevation="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:siRadius="8dp"
         app:siSquare="true"
         tools:background="@color/green_200"
-
         tools:src="@drawable/kong" />
 
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
-        android:textColor="#9daec3"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textAppearance="@style/Small"
+        android:textColor="#9daec3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/iv_icon"
         app:layout_constraintTop_toBottomOf="@+id/iv_icon"
         tools:text="07:00" />
 
     <ImageView
+
         android:id="@+id/iv_ticket"
         android:layout_width="60dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/blue_shape"
         android:elevation="6dp"
-        android:padding="10dp"
+        android:padding="5dp"
         android:src="@drawable/ticket"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/iv_overflow"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:elevation="6dp"
+        app:layout_constraintRight_toRightOf="@+id/cv"
+        app:layout_constraintTop_toTopOf="@+id/cv"
+        app:srcCompat="@drawable/ic_more" />
 
 
 </com.mkhaleghy.cinema.MovieView>

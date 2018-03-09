@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -12,8 +12,12 @@
 
     <style name="Title" parent="Base.TextAppearance.AppCompat.Title">
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Body1" parent="Base.TextAppearance.AppCompat.Body2">
 
     </style>
+
     <style name="Small" parent="Base.TextAppearance.AppCompat.Small">
         <item name="android:textSize">13sp</item>
     </style>

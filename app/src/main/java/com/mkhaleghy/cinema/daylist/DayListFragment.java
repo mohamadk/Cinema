@@ -1,55 +1,51 @@
-package com.mkhaleghy.cinema;
+package com.mkhaleghy.cinema.daylist;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
 
+import com.mkhaleghy.cinema.R;
+import com.mkhaleghy.cinema.RecyclerItemAnimator;
 import com.mkhaleghy.cinema.adapter.Element;
-import com.mkhaleghy.cinema.adapter.DayListContract;
 import com.mkhaleghy.cinema.adapter.RecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DayListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DayListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DayListFragment extends BaseFragment implements DayListContract.View {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class DayListFragment extends BaseFragment {
+    public static final String TAG = "DayListFragment";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String PARAM_DATE = "date";
+    private Calendar date;
 
     private View mainView;
     private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
     private RecyclerItemAnimator recyclerItemAnimator;
     private OnFragmentInteractionListener mListener;
-    DayListContract.Presenter presenter;
+    DayListViewModel viewModel;
+    private int pos = -1;
 
     public DayListFragment() {
         // Required empty public constructor
     }
 
-    public static DayListFragment newInstance() {
+    public static DayListFragment newInstance(Date date, int pos) {
         DayListFragment fragment = new DayListFragment();
         Bundle args = new Bundle();
+        args.putLong(PARAM_DATE, date.getTime());
+        args.putInt("pos", pos);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,8 +53,11 @@ public class DayListFragment extends BaseFragment implements DayListContract.Vie
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//        }
+        if (getArguments() != null) {
+            pos = getArguments().getInt("pos");
+            date = Calendar.getInstance();
+            date.setTime(new Date(getArguments().getLong(PARAM_DATE)));
+        }
     }
 
     @Override
@@ -66,41 +65,35 @@ public class DayListFragment extends BaseFragment implements DayListContract.Vie
                              Bundle savedInstanceState) {
 
         mainView = inflater.inflate(R.layout.fragment_day_list, container, false);
-        presenter=new DayListPresenter(this);
+        viewModel = ViewModelProviders.of(this).get(DayListViewModel.class);
 
         recyclerView = mainView.findViewById(R.id.rv_list);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter = new RecyclerAdapter(getActivity()));
 
         recyclerItemAnimator = new RecyclerItemAnimator(
                 recyclerView
-                ,layoutManager
-                ,.5f
+                , layoutManager
+                , .5f
         );
 
-        SeekBar seekBar=mainView.findViewById(R.id.seekBar);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                recyclerItemAnimator.animate(progress/100f);
-            }
+        viewModel.items.observe(this,movieItemsObserver);
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        presenter.start();
+        Log.d(TAG, "onCreateView: this=" + this + " pos=" + pos);
+        viewModel.start();
 
         return mainView;
     }
+
+
+    Observer<DayList> movieItemsObserver=new Observer<DayList>() {
+        @Override
+        public void onChanged(@Nullable DayList dayList) {
+            Log.d(TAG, "onChanged() called with: elements.size = [" + dayList.movies().size() + "]");
+            adapter.bindItems(dayList.movies());
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
@@ -119,13 +112,11 @@ public class DayListFragment extends BaseFragment implements DayListContract.Vie
         mListener = null;
     }
 
-    @Override
-    public void bind(ArrayList<Element> movies) {
-        adapter.bindItems(movies);
-    }
-
-    public void animate(float fraction){
-        recyclerItemAnimator.animate(fraction);
+    public void animate(float fraction) {
+        Log.d(TAG, "animate() called with: fraction = [" + fraction + "] recyclerItemAnimator=" + recyclerItemAnimator + " date=" + date + " posi=" + pos + " this=" + this);
+        if (recyclerItemAnimator != null) {
+            recyclerItemAnimator.animate(fraction);
+        }
     }
 
 

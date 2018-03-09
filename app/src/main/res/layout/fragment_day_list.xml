@@ -2,26 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
-    tools:context="com.mkhaleghy.cinema.DayListFragment">
+    android:background="@drawable/spinner_back"
+    tools:context="com.mkhaleghy.cinema.daylist.DayListFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="100dp"
         android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_list"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         tools:listitem="@layout/item_movie"
         />
 
 
-    <android.support.v7.widget.AppCompatSeekBar
-        android:layout_width="match_parent"
-        android:layout_marginTop="50dp"
-        android:max="100"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar"
-        />
 </FrameLayout>

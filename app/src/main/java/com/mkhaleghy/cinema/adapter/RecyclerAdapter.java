@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mkhaleghy.cinema.R;
+import com.mkhaleghy.cinema.daylist.Movie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    List<Element> items;
+    List<Movie> items=new ArrayList<>();
     LayoutInflater inflater;
 
     public RecyclerAdapter(Context context) {
@@ -47,8 +48,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return items.size();
     }
 
-    public void bindItems(List<Element> movies) {
+    public void bindItems(List<Movie> movies) {
         items = movies;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

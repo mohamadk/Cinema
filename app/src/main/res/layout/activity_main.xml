@@ -2,9 +2,18 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/mainLay"
-    tools:context="com.mkhaleghy.cinema.MainActivity">
+    android:background="#eeeeee"
+    android:fitsSystemWindows="true"
+    tools:context="com.mkhaleghy.cinema.main.MainActivity">
+
+    <android.support.v4.view.ViewPager
+        android:clipToPadding="false"
+        android:background="@color/amber_500"
+        android:id="@+id/vp_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>
