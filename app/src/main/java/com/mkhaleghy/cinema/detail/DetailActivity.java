@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
@@ -36,12 +37,14 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     DraggableConstraintLayout mainLay;
+    LinearLayout ll_infoLay;
     ViewPager pager;
     NavigationTabStrip tabStrip;
 
     TextView tv_title;
     TextView tv_subTitle;
     NiceSpinner spinner;
+    AppCompatImageView iv_play;
     RoundedImageView iv_icon;
     RoundedImageView iv_icon_cover;
     RampImageView iv_cover;
@@ -56,7 +59,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        MAX_DRAG = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
+        MAX_DRAG = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics());
 
         detail = getIntent().getParcelableExtra(PAR_DETAIL);
         initViews();
@@ -75,12 +78,16 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onDrag(int dy) {
                 Log.d(TAG, "onDrag() called with: dy = [" + dy + "]");
-                if (dy > 0 && dy <= MAX_DRAG) {
+                if (dy >= 0 && dy <= MAX_DRAG) {
                     iv_cover.setRampDy(dy);
                     cv.setTranslationY(dy);
-//                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gl_top.getLayoutParams();
-//                    params.guideBegin= params.guideBegin+dy;
-//                    gl_top.setLayoutParams(params);
+                    spinner.setTranslationY(dy);
+                    tv_title.setTranslationY(dy);
+                    tv_subTitle.setTranslationY(dy);
+                    rb_rate.setTranslationY(dy);
+                    tv_rate.setTranslationY(dy);
+                    ll_infoLay.setTranslationY(dy);
+                    iv_play.setTranslationY(dy*.4f);
                 }
             }
         });
@@ -109,12 +116,14 @@ public class DetailActivity extends AppCompatActivity {
 
     private void initViews() {
         mainLay = findViewById(R.id.mainLay);
+        ll_infoLay = findViewById(R.id.ll_infoLay);
         pager = findViewById(R.id.pager);
         tabStrip = findViewById(R.id.nts_center);
         tv_title = findViewById(R.id.tv_title);
         tv_subTitle = findViewById(R.id.tv_subtitle);
         spinner = findViewById(R.id.timeSpinner);
         iv_icon = findViewById(R.id.iv_icon);
+        iv_play = findViewById(R.id.iv_play);
         iv_icon_cover = findViewById(R.id.iv_icon_cover);
         iv_cover = findViewById(R.id.iv_cover);
         rb_rate = findViewById(R.id.rb_rate);

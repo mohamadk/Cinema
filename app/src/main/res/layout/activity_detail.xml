@@ -23,6 +23,8 @@
     <android.support.v7.widget.AppCompatImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:id="@+id/iv_play"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toTopOf="@+id/iconTopSpace"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +128,7 @@
 
 
     <LinearLayout
-
+        android:id="@+id/ll_infoLay"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:elevation="11dp"

@@ -171,12 +171,6 @@ public class DraggableConstraintLayout extends ConstraintLayout {
                 releasedChild.setVisibility(VISIBLE);
                 releasedChild.setX(startX);
                 releasedChild.setY(startY);
-
-                for (int i = 0; i < getChildCount(); i++) {
-                    getChildAt(i).setTranslationY(0);
-                    getChildAt(i).setTranslationX(0);
-                }
-
             });
 
         }
