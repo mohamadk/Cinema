@@ -1,10 +1,14 @@
 package com.mkhaleghy.cinema.detail;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Guideline;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
@@ -12,6 +16,7 @@ import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,12 +33,24 @@ import org.angmarch.views.NiceSpinner;
 public class DetailActivity extends AppCompatActivity {
     public static final String TAG = "DetailActivity";
     private static String PAR_DETAIL = "d";
-    private int MAX_DRAG ;
+    private int MAX_DRAG;
 
-    public static void start(Context context, Detail detail) {
+    public static void start(Activity context, Detail detail, View... sharedViews) {
         Intent starter = new Intent(context, DetailActivity.class);
         starter.putExtra(PAR_DETAIL, detail);
-        context.startActivity(starter);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Pair<View, String>[] sharedElements = new Pair[sharedViews.length];
+            for (int i = 0; i < sharedViews.length; i++) {
+                sharedElements[i] = new Pair<>(sharedViews[i], sharedViews[i].getTransitionName());
+            }
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(context, sharedElements);
+            context.startActivity(starter, options.toBundle());
+        } else {
+            context.startActivity(starter);
+        }
+
     }
 
     DraggableConstraintLayout mainLay;
@@ -69,6 +86,7 @@ public class DetailActivity extends AppCompatActivity {
 
         mainLay.addDragView(iv_icon, iv_icon_cover);
 
+        mainLay.setMaxDrag(MAX_DRAG);
         mainLay.setDragController(new DraggableConstraintLayout.DragController() {
             @Override
             public void onDragDrop(View view, boolean captured) {
@@ -87,8 +105,13 @@ public class DetailActivity extends AppCompatActivity {
                     rb_rate.setTranslationY(dy);
                     tv_rate.setTranslationY(dy);
                     ll_infoLay.setTranslationY(dy);
-                    iv_play.setTranslationY(dy*.4f);
+                    iv_play.setTranslationY(dy * .4f);
                 }
+            }
+
+            @Override
+            public void finish() {
+                supportFinishAfterTransition();
             }
         });
         bindViews();
@@ -129,7 +152,23 @@ public class DetailActivity extends AppCompatActivity {
         rb_rate = findViewById(R.id.rb_rate);
         tv_rate = findViewById(R.id.tv_rate);
         cv = findViewById(R.id.card);
-        gl_top=findViewById(R.id.topGuideline);
+        gl_top = findViewById(R.id.topGuideline);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        supportFinishAfterTransition();
+    }
 }

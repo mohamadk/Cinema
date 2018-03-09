@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TimeInterpolator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.ViewDragHelper;
@@ -29,6 +28,8 @@ public class DraggableConstraintLayout extends ConstraintLayout {
     TimeInterpolator sAccelerator = new AccelerateInterpolator();
     float startX, startY, startTX, startTY;
     View releasedChild;
+    private int maxDrag;
+    private boolean canceledAnim;
 
     public DraggableConstraintLayout(Context context) {
         super(context);
@@ -56,7 +57,7 @@ public class DraggableConstraintLayout extends ConstraintLayout {
 
             @Override
             public boolean tryCaptureView(View child, int pointerId) {
-                boolean res = mDragView==child;
+                boolean res = mDragView == child;
                 return res;
             }
 
@@ -65,7 +66,7 @@ public class DraggableConstraintLayout extends ConstraintLayout {
                 super.onViewPositionChanged(changedView, left, top, dx, dy);
 
                 if (mDragController != null) {
-                    mDragController.onDrag((int) (top-startY));
+                    mDragController.onDrag((int) (top - startY));
                 }
             }
 
@@ -142,8 +143,15 @@ public class DraggableConstraintLayout extends ConstraintLayout {
         downAnim.start();
 
         downAnim.addUpdateListener(animation -> {
+            int drag = (int) (((float) animation.getAnimatedValue(View.Y.getName())) - startY);
             if (mDragController != null) {
-                mDragController.onDrag((int) (((float) animation.getAnimatedValue(View.Y.getName()))-startY));
+                if (maxDrag < drag) {
+                    mDragController.onDrag(drag);
+                } else {
+                    canceledAnim = true;
+                    downAnim.cancel();
+                    mDragController.finish();
+                }
             }
         });
 
@@ -151,9 +159,11 @@ public class DraggableConstraintLayout extends ConstraintLayout {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                releasedChild.setVisibility(View.INVISIBLE);
-                mDragViewCover.setVisibility(VISIBLE);
-                requestLayout();
+                if (!canceledAnim) {
+                    releasedChild.setVisibility(View.INVISIBLE);
+                    mDragViewCover.setVisibility(VISIBLE);
+                    requestLayout();
+                }
             }
         });
 
@@ -177,8 +187,8 @@ public class DraggableConstraintLayout extends ConstraintLayout {
     }
 
     public void addDragView(View dragView, View dragViewCover) {
-        mDragView =dragView;
-        mDragViewCover =dragViewCover;
+        mDragView = dragView;
+        mDragViewCover = dragViewCover;
     }
 
 
@@ -186,8 +196,16 @@ public class DraggableConstraintLayout extends ConstraintLayout {
         this.mDragController = mDragController;
     }
 
-    public interface DragController {
-        public void onDragDrop(View view, boolean captured);
-        public void onDrag(int dy);
+    public void setMaxDrag(int maxDrag) {
+        this.maxDrag = maxDrag;
     }
+
+    public interface DragController {
+        void onDragDrop(View view, boolean captured);
+
+        void onDrag(int dy);
+
+        void finish();
+    }
+
 }

@@ -1,12 +1,13 @@
 package com.mkhaleghy.cinema;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.AppCompatRatingBar;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.util.AttributeSet;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.mkhaleghy.cinema.detail.DetailActivity;
 public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupMenu.OnMenuItemClickListener {
 
     private ImageView iv_icon;
+    private CardView cv;
     private ImageView iv_overFlow;
     private TextView tv_title;
     private TextView tv_subtitle;
@@ -53,6 +55,7 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
     protected void onFinishInflate() {
         super.onFinishInflate();
         iv_icon = findViewById(R.id.iv_icon);
+        cv = findViewById(R.id.cv);
         iv_overFlow = findViewById(R.id.iv_overflow);
         tv_title = findViewById(R.id.tv_title);
         tv_subtitle = findViewById(R.id.tv_subtitle);
@@ -80,7 +83,7 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
         rb_rate.setRating(item.rate());
 
         setOnClickListener(v -> {
-            DetailActivity.start(getContext(),item.detail());
+            DetailActivity.start(((Activity) getContext()),item.detail(),iv_icon,cv,tv_title,tv_subtitle,rb_rate);
         });
 
     }
