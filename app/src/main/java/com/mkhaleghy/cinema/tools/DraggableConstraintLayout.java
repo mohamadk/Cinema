@@ -142,11 +142,9 @@ public class DraggableConstraintLayout extends ConstraintLayout {
         downAnim.start();
 
         downAnim.addUpdateListener(animation -> {
-
             if (mDragController != null) {
                 mDragController.onDrag((int) (((float) animation.getAnimatedValue(View.Y.getName()))-startY));
             }
-
         });
 
         downAnim.addListener(new AnimatorListenerAdapter() {
@@ -173,8 +171,12 @@ public class DraggableConstraintLayout extends ConstraintLayout {
                 releasedChild.setVisibility(VISIBLE);
                 releasedChild.setX(startX);
                 releasedChild.setY(startY);
-                releasedChild.setTranslationX(startTX);
-                releasedChild.setTranslationX(startTY);
+
+                for (int i = 0; i < getChildCount(); i++) {
+                    getChildAt(i).setTranslationY(0);
+                    getChildAt(i).setTranslationX(0);
+                }
+
             });
 
         }

@@ -77,7 +77,7 @@ public class DetailActivity extends AppCompatActivity {
                 Log.d(TAG, "onDrag() called with: dy = [" + dy + "]");
                 if (dy > 0 && dy <= MAX_DRAG) {
                     iv_cover.setRampDy(dy);
-//                    cv.setTranslationY(dy);
+                    cv.setTranslationY(dy);
 //                    ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) gl_top.getLayoutParams();
 //                    params.guideBegin= params.guideBegin+dy;
 //                    gl_top.setLayoutParams(params);
