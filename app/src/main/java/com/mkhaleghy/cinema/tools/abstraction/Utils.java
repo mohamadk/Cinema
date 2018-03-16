@@ -26,7 +26,7 @@ public class Utils {
         return 0;
     }
 
-    public static InputStream loadInputStreamFromAssetFile(Context context, String fileName){
+    public static InputStream loadInputStreamFromAssetFile(Context context, String fileName) {
         AssetManager am = context.getAssets();
         try {
             InputStream is = am.open(fileName);
@@ -37,7 +37,7 @@ public class Utils {
         return null;
     }
 
-    public static String loadFileFromAssets(String path){
+    public static String loadFileFromAssets(String path) {
         String content = null;
         try {
             InputStream is = loadInputStreamFromAssetFile(Ci.context(), path);

@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.mkhaleghy.cinema.main.MainPagerAdapter;
-
 /**
  * Created by mk on 3/3/2018.
  */
@@ -46,7 +44,7 @@ public class ViewPagerTransform implements ViewPager.PageTransformer {
                 if (item == null) {
                     continue;
                 }
-                int x=position<0?(visibleItems.length-i):i;
+                int x = position < 0 ? (visibleItems.length - i) : i;
                 item.setTranslationX(((x * offsetStep * item.getWidth() * (position))));
             }
         } else { // (1,+Infinity]
@@ -55,7 +53,7 @@ public class ViewPagerTransform implements ViewPager.PageTransformer {
 
     private void findVisibleItems() {
         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-        if(firstVisibleItemPosition>0){
+        if (firstVisibleItemPosition > 0) {
             firstVisibleItemPosition--;
         }
         int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();

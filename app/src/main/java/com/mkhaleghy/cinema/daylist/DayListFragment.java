@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,7 +24,7 @@ import java.util.Date;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 
 
-public class DayListFragment extends BaseFragment implements RecyclerAdapter.OnAdapterInteractionListener {
+public class DayListFragment extends Fragment implements RecyclerAdapter.OnAdapterInteractionListener {
     public static final String TAG = "DayListFragment";
 
     private static final String PARAM_DATE = "date";

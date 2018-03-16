@@ -7,7 +7,6 @@ import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.mkhaleghy.cinema.adapter.Element;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
  * Created by mk on 3/8/2018.
  */
 @AutoValue
-public abstract class Detail implements Parcelable{
+public abstract class Detail implements Parcelable {
     @Nullable
     @SerializedName("tu")
     public abstract String thrillerUrl();

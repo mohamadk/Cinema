@@ -97,7 +97,6 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
         });
 
 
-
     }
 
     @Override
