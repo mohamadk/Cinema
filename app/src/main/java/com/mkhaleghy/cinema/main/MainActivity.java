@@ -1,31 +1,22 @@
 package com.mkhaleghy.cinema.main;
 
 import android.app.SharedElementCallback;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.mkhaleghy.cinema.BaseActivity;
 import com.mkhaleghy.cinema.R;
 import com.mkhaleghy.cinema.ViewPagerTransform;
 import com.mkhaleghy.cinema.daylist.DayListFragment;
-import com.mkhaleghy.cinema.main.MainPagerAdapter;
 import com.mkhaleghy.cinema.tools.RampImageView;
 import com.mkhaleghy.cinema.tools.SlidingTabLayout;
-import com.mkhaleghy.cinema.tools.abstraction.OnPageChangeListener;
 import com.mkhaleghy.cinema.tools.abstraction.Utils;
 
 import java.util.List;
@@ -59,6 +50,7 @@ public class MainActivity extends BaseActivity implements DayListFragment.OnFrag
             }
         });
         toolbar.setTitle("");
+        setSupportActionBar(toolbar);
 
     }
 
@@ -111,8 +103,6 @@ public class MainActivity extends BaseActivity implements DayListFragment.OnFrag
     public void detailSelected() {
         materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
     }
-
-
 
 
 }
