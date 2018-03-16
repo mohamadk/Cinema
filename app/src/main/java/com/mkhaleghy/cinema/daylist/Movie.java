@@ -16,7 +16,6 @@ import com.mkhaleghy.cinema.detail.models.Detail;
 public abstract class Movie implements Element ,Parcelable{
     public static final int MOVIE=0;
 
-
     @SerializedName("i")
     public abstract String id();
 

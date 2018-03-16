@@ -36,7 +36,7 @@ import android.widget.TextView;
  */
 public class SlidingTabLayout extends HorizontalScrollView {
     public static final String TAG = "SlidingTabLayout";
-    private float selectedScaleFactor=.5f;
+    private float selectedScaleFactor = .5f;
 
     /**
      * Allows complete control over the colors drawn in the tab layout. Set with

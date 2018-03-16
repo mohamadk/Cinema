@@ -17,8 +17,8 @@ import com.mkhaleghy.cinema.R;
  */
 
 public class RampImageView extends AppCompatImageView {
-    int rampHeight=0;
-    Paint paint=new Paint();
+    int rampHeight = 0;
+    Paint paint = new Paint();
     private int rampColor;
     private float rampStartPercent;
     private float rampDy;
@@ -40,11 +40,11 @@ public class RampImageView extends AppCompatImageView {
 
     private void init(AttributeSet attrs) {
         if (attrs != null) {
-            TypedArray ta=getContext().obtainStyledAttributes(attrs, R.styleable.RampImageView);
+            TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.RampImageView);
 
-            rampHeight=ta.getDimensionPixelSize(R.styleable.RampImageView_riv_rampHeight,0);
-            rampStartPercent=ta.getFloat(R.styleable.RampImageView_riv_rampStartPercent,0);
-            rampColor=ta.getColor(R.styleable.RampImageView_riv_rampColor,Color.WHITE);
+            rampHeight = ta.getDimensionPixelSize(R.styleable.RampImageView_riv_rampHeight, 0);
+            rampStartPercent = ta.getFloat(R.styleable.RampImageView_riv_rampStartPercent, 0);
+            rampColor = ta.getColor(R.styleable.RampImageView_riv_rampColor, Color.WHITE);
         }
 
         paint.setColor(rampColor);
@@ -54,24 +54,25 @@ public class RampImageView extends AppCompatImageView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        drawTriangle(0, (int) (getHeight()-getHeight()*rampStartPercent+rampDy),getWidth(),rampHeight,false,paint,canvas);
-        canvas.drawRect(0,(int) (getHeight()-getHeight()*rampStartPercent+rampDy),getWidth(),getHeight(),paint);
+        drawTriangle(0, (int) (getHeight() - getHeight() * rampStartPercent + rampDy), getWidth(), rampHeight, false, paint, canvas);
+        canvas.drawRect(0, (int) (getHeight() - getHeight() * rampStartPercent + rampDy), getWidth(), getHeight(), paint);
     }
-    private void drawTriangle(int x, int y, int width, int height, boolean inverted, Paint paint, Canvas canvas){
 
-        Point p1 = new Point(x,y);
+    private void drawTriangle(int x, int y, int width, int height, boolean inverted, Paint paint, Canvas canvas) {
+
+        Point p1 = new Point(x, y);
         int pointX = x + width;
-        int pointY = inverted?  y + height : y - height;
+        int pointY = inverted ? y + height : y - height;
 
-        Point p2 = new Point(pointX,pointY);
-        Point p3 = new Point(x+width,y);
+        Point p2 = new Point(pointX, pointY);
+        Point p3 = new Point(x + width, y);
 
 
         Path path = new Path();
         path.setFillType(Path.FillType.EVEN_ODD);
-        path.moveTo(p1.x,p1.y);
-        path.lineTo(p2.x,p2.y);
-        path.lineTo(p3.x,p3.y);
+        path.moveTo(p1.x, p1.y);
+        path.lineTo(p2.x, p2.y);
+        path.lineTo(p3.x, p3.y);
         path.close();
 
         canvas.drawPath(path, paint);

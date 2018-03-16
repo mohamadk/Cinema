@@ -14,6 +14,4 @@ import java.util.List;
 public interface DataFetcher {
 
     void getData(MutableLiveData<DayList> elementsData);
-
-
 }

@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.mkhaleghy.cinema.main.MainPagerAdapter;
-
 /**
  * Created by mk on 3/3/2018.
  */
@@ -46,18 +44,18 @@ public class ViewPagerTransform implements ViewPager.PageTransformer {
                 if (item == null) {
                     continue;
                 }
-                int x=position<0?(visibleItems.length-i):i;
+                int x = position < 0 ? (visibleItems.length - i) : i;
                 item.setTranslationX(((x * offsetStep * item.getWidth() * (position))));
             }
         } else { // (1,+Infinity]
         }
-//        int pageWidth = view.getWidth();
-//        RecyclerView recyclerView=view.findViewById(R.id.rv_list);
-//        new RecyclerItemAnimator(recyclerView, (LinearLayoutManager) recyclerView.getLayoutManager(), .5f).animate(position);
     }
 
     private void findVisibleItems() {
         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+        if (firstVisibleItemPosition > 0) {
+            firstVisibleItemPosition--;
+        }
         int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
         visibleItems = new View[lastVisibleItemPosition - firstVisibleItemPosition + 1];
 

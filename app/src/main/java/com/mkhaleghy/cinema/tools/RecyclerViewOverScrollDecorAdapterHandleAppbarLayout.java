@@ -12,13 +12,14 @@ import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorA
  */
 
 public class RecyclerViewOverScrollDecorAdapterHandleAppbarLayout extends RecyclerViewOverScrollDecorAdapter implements AppBarLayout.OnOffsetChangedListener {
-    public static final String TAG="HandleAppbarLayout";
+    public static final String TAG = "HandleAppbarLayout";
     AppBarLayout appBarLayout;
-    private boolean fullyExpanded =false;
+    private boolean fullyExpanded = false;
 
     public RecyclerViewOverScrollDecorAdapterHandleAppbarLayout(RecyclerView recyclerView) {
         super(recyclerView);
     }
+
     public RecyclerViewOverScrollDecorAdapterHandleAppbarLayout(AppBarLayout appBarLayout, RecyclerView recyclerView) {
         super(recyclerView);
         this.appBarLayout = appBarLayout;
@@ -47,13 +48,11 @@ public class RecyclerViewOverScrollDecorAdapterHandleAppbarLayout extends Recycl
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
 
-        if(verticalOffset==0){
-            fullyExpanded =true;
-        }else{
-            fullyExpanded =false;
+        if (verticalOffset == 0) {
+            fullyExpanded = true;
+        } else {
+            fullyExpanded = false;
         }
-
-        Log.d(TAG, "onOffsetChanged: fullyExpanded="+fullyExpanded );
     }
 
 

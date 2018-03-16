@@ -18,7 +18,7 @@ import static android.view.MotionEvent.INVALID_POINTER_ID;
  */
 
 public class DragAnim {
-    public static final String TAG="DragAnim";
+    public static final String TAG = "DragAnim";
     // The ‘active pointer’ is the one currently moving our object.
     private int mActivePointerId = INVALID_POINTER_ID;
 
@@ -26,11 +26,11 @@ public class DragAnim {
     private ViewDragHelper mDragHelper;
     private ArrayList<View> mDragViews;
     private DragFrameLayoutController mDragFrameLayoutController;
-    private TimeInterpolator sAccelerator=new AccelerateInterpolator();
+    private TimeInterpolator sAccelerator = new AccelerateInterpolator();
 
-    public DragAnim(ViewGroup view,DragFrameLayoutController mDragFrameLayoutController) {
+    public DragAnim(ViewGroup view, DragFrameLayoutController mDragFrameLayoutController) {
         this.parent = view;
-        this.mDragFrameLayoutController=mDragFrameLayoutController;
+        this.mDragFrameLayoutController = mDragFrameLayoutController;
         animate();
 
     }
@@ -38,7 +38,8 @@ public class DragAnim {
     private void animate() {
         mDragViews = new ArrayList<>();
         mDragHelper = ViewDragHelper.create(parent, 1.0f, new ViewDragHelper.Callback() {
-            float startX,startY;
+            float startX, startY;
+
             @Override
             public boolean tryCaptureView(View child, int pointerId) {
                 return mDragViews.contains(child);
@@ -62,11 +63,11 @@ public class DragAnim {
             @Override
             public void onViewCaptured(View capturedChild, int activePointerId) {
                 super.onViewCaptured(capturedChild, activePointerId);
-                startX=capturedChild.getX();
-                startY=capturedChild.getY();
+                startX = capturedChild.getX();
+                startY = capturedChild.getY();
 
                 if (mDragFrameLayoutController != null) {
-                    mDragFrameLayoutController.onDragDrop(capturedChild,true);
+                    mDragFrameLayoutController.onDragDrop(capturedChild, true);
                 }
             }
 
@@ -74,9 +75,9 @@ public class DragAnim {
             public void onViewReleased(View releasedChild, float xvel, float yvel) {
                 super.onViewReleased(releasedChild, xvel, yvel);
                 if (mDragFrameLayoutController != null) {
-                    mDragFrameLayoutController.onDragDrop(releasedChild,false);
+                    mDragFrameLayoutController.onDragDrop(releasedChild, false);
                 }
-                releaseAnim(releasedChild,startX,startY);
+                releaseAnim(releasedChild, startX, startY);
             }
         });
 
@@ -107,6 +108,7 @@ public class DragAnim {
     public void addDragView(View dragView) {
         mDragViews.add(dragView);
     }
+
     public interface DragFrameLayoutController {
 
         public void onDragDrop(View view, boolean captured);
