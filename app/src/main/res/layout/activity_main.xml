@@ -36,12 +36,11 @@
             app:layout_scrollFlags="scroll|snap">
 
             <android.support.v7.widget.Toolbar
+                android:layout_marginBottom="10dp"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-
                 app:layout_collapseMode="pin"
-
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 tools:background="@color/red_400" />
 

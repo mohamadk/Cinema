@@ -1,7 +1,6 @@
 package com.mkhaleghy.cinema.detail;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,16 +14,13 @@ import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
@@ -50,7 +46,7 @@ public class DetailActivity extends BaseActivity {
     ViewPager pager;
     NavigationTabStrip tabStrip;
 
-    ImageView iv_book;
+
     TextView tv_title;
     TextView tv_subTitle;
     NiceSpinner spinner;
@@ -183,7 +179,6 @@ public class DetailActivity extends BaseActivity {
         tv_subTitle = findViewById(R.id.tv_subtitle);
         spinner = findViewById(R.id.timeSpinner);
         iv_icon = findViewById(R.id.iv_icon);
-        iv_book= findViewById(R.id.iv_book);
         iv_ticket = findViewById(R.id.iv_ticket);
         iv_play = findViewById(R.id.iv_play);
         iv_icon_cover = findViewById(R.id.iv_icon_cover);
@@ -198,19 +193,6 @@ public class DetailActivity extends BaseActivity {
             public boolean onPreDraw() {
                 iv_ticket.getViewTreeObserver().removeOnPreDrawListener(this);
                 iv_ticket.setTranslationY(getIntent().getIntExtra(PAR_TICKET_Y, 0) - iv_ticket.getY());
-
-
-                return true;
-            }
-        });
-
-
-        iv_book.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                Log.d(TAG, "onPreDraw: ");
-                iv_book.getViewTreeObserver().removeOnPreDrawListener(this);
-                new SwitchSearchAnimHandler(iv_book,R.drawable.ticket);
                 return true;
             }
         });
@@ -220,31 +202,9 @@ public class DetailActivity extends BaseActivity {
         toolbar.setLayoutParams(params);
     }
 
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//
-//        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        ImageView iv = (ImageView)inflater.inflate(R.layout.search, null);
-//        iv.setLayoutParams(new ViewGroup.LayoutParams(
-//                Utils.getActionBarSize()
-//                ,Utils.getActionBarSize()));
-//
-//        iv.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-//            @Override
-//            public boolean onPreDraw() {
-//                Log.d(TAG, "onPreDraw: ");
-//                iv.getViewTreeObserver().removeOnPreDrawListener(this);
-//                new SwitchSearchAnimHandler(iv,R.drawable.ticket);
-//                return true;
-//            }
-//        });
-//
-//        iv.setOnClickListener(v -> Toast.makeText(DetailActivity.this, "dfaf", Toast.LENGTH_SHORT).show());
-//
-//        menu.findItem(R.id.m_search).setActionView(iv);
-//
-//        return super.onCreateOptionsMenu(menu);
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }

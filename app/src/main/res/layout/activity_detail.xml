@@ -32,14 +32,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize">
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_gravity="right"
-                app:srcCompat="@drawable/ic_search"
-                android:id="@+id/iv_book"
-                android:padding="10dp"
-                />
+
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

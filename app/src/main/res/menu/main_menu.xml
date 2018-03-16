@@ -4,7 +4,6 @@
     <item
         android:id="@+id/m_search"
         android:icon="@drawable/ic_search"
-        app:actionViewClass="android.support.v7.widget.AppCompatImageView"
         android:title="@string/search"
         app:showAsAction="always" />
 </menu>

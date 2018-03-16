@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity implements DayListFragment.OnFrag
                 materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
             }
         });
+        toolbar.setTitle("");
 
     }
 
@@ -69,26 +70,8 @@ public class MainActivity extends BaseActivity implements DayListFragment.OnFrag
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ImageView iv = (ImageView)inflater.inflate(R.layout.search, null);
-//        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.slide_down);
-//        rotation.setRepeatCount(Animation.INFINITE);
-//        rotation.setDuration(500);
-
-//        iv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                iv.startAnimation(rotation);
-//                Toast.makeText(MainActivity.this, "dfaf", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        menu.findItem(R.id.m_search).setActionView(iv);
-
         return super.onCreateOptionsMenu(menu);
     }
-
 
     private void initViews() {
 
@@ -128,4 +111,8 @@ public class MainActivity extends BaseActivity implements DayListFragment.OnFrag
     public void detailSelected() {
         materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW);
     }
+
+
+
+
 }
