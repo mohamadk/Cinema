@@ -30,6 +30,7 @@ public class DraggableConstraintLayout extends ConstraintLayout {
     View releasedChild;
     private int maxDrag;
     private boolean canceledAnim;
+    private boolean finishAfterRelease=false;
 
     public DraggableConstraintLayout(Context context) {
         super(context);
@@ -66,6 +67,9 @@ public class DraggableConstraintLayout extends ConstraintLayout {
                 super.onViewPositionChanged(changedView, left, top, dx, dy);
 
                 if (mDragController != null) {
+                    if((top - startY)>=maxDrag){
+                        finishAfterRelease=true;
+                    }
                     mDragController.onDrag((int) (top - startY));
                 }
             }
@@ -148,9 +152,13 @@ public class DraggableConstraintLayout extends ConstraintLayout {
                 if (maxDrag < drag) {
                     mDragController.onDrag(drag);
                 } else {
-                    canceledAnim = true;
-                    downAnim.cancel();
-                    mDragController.finish();
+                    if(finishAfterRelease){
+                        canceledAnim = true;
+                        mDragController.finish();
+                        downAnim.cancel();
+                    }else{
+                        mDragController.onDrag(drag);
+                    }
                 }
             }
         });

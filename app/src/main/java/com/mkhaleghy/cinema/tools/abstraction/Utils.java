@@ -17,6 +17,14 @@ import java.io.InputStream;
  */
 
 public class Utils {
+    public static int getStatusBarHeight() {
+        int resourceId = Ci.context().getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return Ci.context().getResources().getDimensionPixelSize(resourceId);
+        }
+        return 0;
+    }
 
     public static InputStream loadInputStreamFromAssetFile(Context context, String fileName){
         AssetManager am = context.getAssets();

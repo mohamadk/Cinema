@@ -31,9 +31,9 @@ task clean(type: Delete) {
 }
 
 ext{
-    compileSdkVersion=26
+    compileSdkVersion=27
     minSdkVersion=15
-    targetSdkVersion=26
-    supportLibrary="27.0.2"
+    targetSdkVersion=27
+    supportLibrary="27.1.0"
 }
 

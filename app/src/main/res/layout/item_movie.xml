@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
+
+    android:paddingTop="5dp"
     tools:background="@color/amber_200">
 
     <android.support.v7.widget.CardView
@@ -16,23 +16,24 @@
         android:layout_height="0dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="#ffffed"
+        app:cardBackgroundColor="#fff"
         app:cardElevation="5dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/sp_startOfCard"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:cardBackgroundColor="@color/red_500"
-        tools:layout_height="100dp">
+        >
 
     </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="25dp"
         android:elevation="6dp"
         android:orientation="vertical"
         android:weightSum="4"
@@ -40,7 +41,8 @@
         app:layout_constraintLeft_toRightOf="@+id/iv_icon"
         app:layout_constraintRight_toRightOf="@id/cv"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/green_200">
+        tools:background="@color/green_200"
+        >
 
         <TextView
             android:id="@+id/tv_title"
@@ -119,12 +121,12 @@
         tools:background="@color/green_200"
         tools:src="@drawable/kong" />
 
-
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:textAppearance="@style/Small"
         android:textColor="#9daec3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -133,7 +135,6 @@
         tools:text="07:00" />
 
     <ImageView
-
         android:id="@+id/iv_ticket"
         android:layout_width="60dp"
         android:layout_height="45dp"

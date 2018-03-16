@@ -1,20 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
+    android:background="#eee"
     android:fitsSystemWindows="true"
     tools:context="com.mkhaleghy.cinema.main.MainActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/apl_appbar"
+        app:elevation="0dp">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="11dp"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                tools:background="@color/red_400" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_logo"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_man_running" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <com.mkhaleghy.cinema.tools.SlidingTabLayout
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:clipToPadding="false"
+            android:id="@+id/stl_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.mkhaleghy.cinema.tools.RampImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:rotation="180"
+        app:layout_behavior="com.mkhaleghy.cinema.main.RampLayoutBehavior"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:riv_rampColor="@color/green_300"
+        app:riv_rampHeight="80dp" />
 
     <android.support.v4.view.ViewPager
-        android:clipToPadding="false"
-        android:background="@color/amber_500"
         android:id="@+id/vp_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
