@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.mkhaleghy.cinema.detail.DetailActivity">
 
+
     <com.mkhaleghy.cinema.tools.RampImageView
         android:id="@+id/iv_cover"
         android:layout_width="0dp"
@@ -20,10 +21,33 @@
         app:riv_rampHeight="80dp"
         app:riv_rampStartPercent=".45" />
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        android:background="@color/transparent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="right"
+                app:srcCompat="@drawable/ic_search"
+                android:id="@+id/iv_book"
+                android:padding="10dp"
+                />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
     <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_play"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:id="@+id/iv_play"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toTopOf="@+id/iconTopSpace"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,12 +56,12 @@
         app:srcCompat="@drawable/ic_play_button" />
 
     <android.support.v7.widget.CardView
-        android:transitionName="card"
         android:id="@+id/card"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:transitionName="card"
         android:visibility="visible"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
@@ -75,12 +99,12 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:transitionName="title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:elevation="11dp"
         android:textAppearance="@style/Title"
+        android:transitionName="title"
         app:layout_constraintBottom_toBottomOf="@id/iv_icon"
         app:layout_constraintLeft_toRightOf="@+id/iv_icon"
         app:layout_constraintRight_toRightOf="@id/card"
@@ -88,22 +112,21 @@
         tools:text="Moonlight" />
 
     <TextView
-        android:transitionName="subtitle"
         android:id="@+id/tv_subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:elevation="11dp"
         android:gravity="left"
-        tools:text="by jordan Vogt-Roberts"
         android:textAppearance="@style/Small"
         android:textColor="@color/subtitle_color"
+        android:transitionName="subtitle"
         app:layout_constraintLeft_toRightOf="@+id/iv_icon"
         app:layout_constraintRight_toRightOf="@id/card"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="by jordan Vogt-Roberts" />
 
     <android.support.v7.widget.AppCompatRatingBar
-        android:transitionName="rate"
         android:id="@+id/rb_rate"
         style="?android:ratingBarStyleSmall"
         android:layout_width="wrap_content"
@@ -112,6 +135,7 @@
         android:layout_marginLeft="15dp"
         android:elevation="11dp"
         android:isIndicator="true"
+        android:transitionName="rate"
         app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
         app:layout_constraintLeft_toRightOf="@+id/iv_icon"
         tools:rating="4" />
@@ -199,9 +223,9 @@
         android:layout_height="170dp"
         android:layout_marginLeft="10dp"
         android:clickable="false"
-        android:transitionName="icon"
         android:elevation="11dp"
         android:src="@drawable/kong"
+        android:transitionName="icon"
         app:layout_constraintLeft_toLeftOf="@+id/card"
         app:layout_constraintTop_toTopOf="@+id/iconTopSpace"
         app:siRadius="8dp" />
@@ -212,6 +236,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="290dp" />
+
+
+    <ImageView
+        android:id="@+id/iv_ticket"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/blue_shape"
+        android:elevation="11dp"
+        android:padding="5dp"
+        android:src="@drawable/ticket"
+        android:transitionName="ticket"
+        android:translationX="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rb_rate"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </com.mkhaleghy.cinema.tools.DraggableConstraintLayout>

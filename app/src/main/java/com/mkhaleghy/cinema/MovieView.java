@@ -1,8 +1,5 @@
 package com.mkhaleghy.cinema;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -10,16 +7,13 @@ import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mkhaleghy.cinema.adapter.Binder;
+import com.mkhaleghy.cinema.adapter.RecyclerAdapter;
 import com.mkhaleghy.cinema.daylist.Movie;
 import com.mkhaleghy.cinema.detail.DetailActivity;
 
@@ -28,7 +22,8 @@ import com.mkhaleghy.cinema.detail.DetailActivity;
  */
 
 public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupMenu.OnMenuItemClickListener {
-    public static final String TAG="MovieView";
+    public static final String TAG = "MovieView";
+    RecyclerAdapter.OnAdapterInteractionListener mListener;
     private ImageView iv_icon;
     private CardView cv;
     private ImageView iv_overFlow;
@@ -39,7 +34,6 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
     private TextView tv_time;
     private AppCompatRatingBar rb_rate;
     private Movie movie;
-
 
     public MovieView(Context context) {
         super(context);
@@ -59,8 +53,6 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
     public void init(AttributeSet attributeSet) {
     }
 
-    ObjectAnimator ticketAnimator;
-
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -78,34 +70,14 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
         popupMenu.inflate(R.menu.item_list_menu);
         popupMenu.setOnMenuItemClickListener(this);
 
-        iv_overFlow.setOnClickListener(v->{
+        iv_overFlow.setOnClickListener(v -> {
             popupMenu.show();
-        });
-
-
-        Log.d(TAG, "onFinishInflate: getWidth()="+getWidth()+" iv_ticket.getRight()="+iv_ticket.getRight()+" w"+(getWidth()-iv_ticket.getRight()));
-        iv_ticket.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                iv_ticket.getViewTreeObserver().removeOnPreDrawListener(this);
-                ticketAnimator=ObjectAnimator.ofFloat(iv_ticket,View.TRANSLATION_X,getWidth()-iv_ticket.getRight()+iv_ticket.getWidth());
-                ticketAnimator.setDuration(200);
-                ticketAnimator.setInterpolator(new AccelerateInterpolator());
-                ticketAnimator.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        DetailActivity.start(((Activity) getContext()),movie.detail(),iv_icon,cv,tv_title,tv_subtitle,rb_rate);
-                    }
-                });
-                return true;
-            }
         });
 
     }
 
     @Override
-    public void bind(Movie item) {
+    public void bind(Movie item, RecyclerAdapter.OnAdapterInteractionListener mListener) {
         this.movie = item;
         iv_icon.setImageResource(R.drawable.kong);
         tv_title.setText(item.title());
@@ -115,8 +87,12 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
         rb_rate.setRating(item.rate());
 
         setOnClickListener(v -> {
-            ticketAnimator.start();
+            int[] ticketLoc = new int[2];
+            iv_ticket.getLocationInWindow(ticketLoc);
+            mListener.detailSelected();
+            DetailActivity.start(((Activity) getContext()), movie.detail(), ticketLoc[1], iv_icon, iv_ticket, cv, tv_title, tv_subtitle, rb_rate);
         });
+
 
 
     }
