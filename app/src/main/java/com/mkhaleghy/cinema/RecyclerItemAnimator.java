@@ -10,12 +10,11 @@ import android.view.View;
 
 public class RecyclerItemAnimator {
 
-    private RecyclerView recyclerView;
+
     private LinearLayoutManager layoutManager;
     private float offset = .5f;
 
-    public RecyclerItemAnimator(RecyclerView recyclerView, LinearLayoutManager layoutManager, float offset) {
-        this.recyclerView = recyclerView;
+    public RecyclerItemAnimator(LinearLayoutManager layoutManager, float offset) {
         this.layoutManager = layoutManager;
         this.offset = offset;
     }

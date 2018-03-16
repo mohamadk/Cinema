@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,13 +15,15 @@ import android.view.ViewGroup;
 
 import com.mkhaleghy.cinema.R;
 import com.mkhaleghy.cinema.RecyclerItemAnimator;
-import com.mkhaleghy.cinema.adapter.Element;
 import com.mkhaleghy.cinema.adapter.RecyclerAdapter;
+import com.mkhaleghy.cinema.tools.RecyclerViewOverScrollDecorAdapterHandleAppbarLayout;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
+import me.everything.android.ui.overscroll.IOverScrollDecor;
+import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
+import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 
 
 public class DayListFragment extends BaseFragment {
@@ -31,6 +34,7 @@ public class DayListFragment extends BaseFragment {
 
     private View mainView;
     private RecyclerView recyclerView;
+
     private RecyclerAdapter adapter;
     private RecyclerItemAnimator recyclerItemAnimator;
     private OnFragmentInteractionListener mListener;
@@ -72,9 +76,16 @@ public class DayListFragment extends BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter = new RecyclerAdapter(getActivity()));
 
+        RecyclerViewOverScrollDecorAdapterHandleAppbarLayout overScroll = new RecyclerViewOverScrollDecorAdapterHandleAppbarLayout(mListener.appbarLayout(), recyclerView);
+        VerticalOverScrollBounceEffectDecorator decorator=new VerticalOverScrollBounceEffectDecorator(overScroll);
+        decorator.setOverScrollUpdateListener((decor, state, offset) -> {
+            if(!overScroll.isInAbsoluteEnd()){
+                mListener.stretch(1+offset/mainView.getHeight(), (int) offset);
+            }
+        });
+
         recyclerItemAnimator = new RecyclerItemAnimator(
-                recyclerView
-                , layoutManager
+                 layoutManager
                 , .5f
         );
 
@@ -121,6 +132,8 @@ public class DayListFragment extends BaseFragment {
 
 
     public interface OnFragmentInteractionListener {
+        AppBarLayout appbarLayout();
 
+        void stretch(float offset,int offsetInPx);
     }
 }

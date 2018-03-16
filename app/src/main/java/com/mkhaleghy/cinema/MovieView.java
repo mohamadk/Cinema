@@ -1,5 +1,8 @@
 package com.mkhaleghy.cinema;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
@@ -7,7 +10,11 @@ import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +28,11 @@ import com.mkhaleghy.cinema.detail.DetailActivity;
  */
 
 public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupMenu.OnMenuItemClickListener {
-
+    public static final String TAG="MovieView";
     private ImageView iv_icon;
     private CardView cv;
     private ImageView iv_overFlow;
+    private ImageView iv_ticket;
     private TextView tv_title;
     private TextView tv_subtitle;
     private TextView tv_genre;
@@ -51,12 +59,15 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
     public void init(AttributeSet attributeSet) {
     }
 
+    ObjectAnimator ticketAnimator;
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         iv_icon = findViewById(R.id.iv_icon);
         cv = findViewById(R.id.cv);
         iv_overFlow = findViewById(R.id.iv_overflow);
+        iv_ticket = findViewById(R.id.iv_ticket);
         tv_title = findViewById(R.id.tv_title);
         tv_subtitle = findViewById(R.id.tv_subtitle);
         tv_genre = findViewById(R.id.tv_genre);
@@ -70,6 +81,27 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
         iv_overFlow.setOnClickListener(v->{
             popupMenu.show();
         });
+
+
+        Log.d(TAG, "onFinishInflate: getWidth()="+getWidth()+" iv_ticket.getRight()="+iv_ticket.getRight()+" w"+(getWidth()-iv_ticket.getRight()));
+        iv_ticket.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                iv_ticket.getViewTreeObserver().removeOnPreDrawListener(this);
+                ticketAnimator=ObjectAnimator.ofFloat(iv_ticket,View.TRANSLATION_X,getWidth()-iv_ticket.getRight()+iv_ticket.getWidth());
+                ticketAnimator.setDuration(200);
+                ticketAnimator.setInterpolator(new AccelerateInterpolator());
+                ticketAnimator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        DetailActivity.start(((Activity) getContext()),movie.detail(),iv_icon,cv,tv_title,tv_subtitle,rb_rate);
+                    }
+                });
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -83,8 +115,9 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
         rb_rate.setRating(item.rate());
 
         setOnClickListener(v -> {
-            DetailActivity.start(((Activity) getContext()),item.detail(),iv_icon,cv,tv_title,tv_subtitle,rb_rate);
+            ticketAnimator.start();
         });
+
 
     }
 

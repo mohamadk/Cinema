@@ -9,12 +9,23 @@
     android:fitsSystemWindows="true"
     tools:context="com.mkhaleghy.cinema.main.MainActivity">
 
+    <com.mkhaleghy.cinema.tools.RampImageView
+        android:id="@+id/riv_ramp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rotation="180"
+        app:layout_behavior="com.mkhaleghy.cinema.main.RampLayoutBehavior"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:riv_rampColor="@color/colorPrimary"
+        tools:background="@color/amber_800"
+        app:riv_rampHeight="80dp"
+         />
+
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/apl_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/apl_appbar"
         app:elevation="0dp">
-
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/main.collapsing"
@@ -22,7 +33,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="scroll|snap">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -30,6 +41,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_marginTop="11dp"
                 app:layout_collapseMode="pin"
+
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 tools:background="@color/red_400" />
 
@@ -43,24 +55,16 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
         <com.mkhaleghy.cinema.tools.SlidingTabLayout
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:clipToPadding="false"
             android:id="@+id/stl_tabs"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            android:clipToPadding="false"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp" />
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.mkhaleghy.cinema.tools.RampImageView
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:rotation="180"
-        app:layout_behavior="com.mkhaleghy.cinema.main.RampLayoutBehavior"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:riv_rampColor="@color/green_300"
-        app:riv_rampHeight="80dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_pager"

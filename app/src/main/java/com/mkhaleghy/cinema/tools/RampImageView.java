@@ -21,7 +21,7 @@ public class RampImageView extends AppCompatImageView {
     Paint paint=new Paint();
     private int rampColor;
     private float rampStartPercent;
-    private int rampDy;
+    private float rampDy;
 
     public RampImageView(Context context) {
         super(context);
@@ -77,7 +77,7 @@ public class RampImageView extends AppCompatImageView {
         canvas.drawPath(path, paint);
     }
 
-    public void setRampDy(int rampDy) {
+    public void setRampDy(float rampDy) {
         this.rampDy = rampDy;
         invalidate();
     }
