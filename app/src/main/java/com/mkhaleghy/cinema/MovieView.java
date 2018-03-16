@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.mkhaleghy.cinema.adapter.Binder;
 import com.mkhaleghy.cinema.adapter.RecyclerAdapter;
+import com.mkhaleghy.cinema.app.GlideApp;
 import com.mkhaleghy.cinema.daylist.Movie;
 import com.mkhaleghy.cinema.detail.DetailActivity;
 
@@ -79,7 +80,9 @@ public class MovieView extends ConstraintLayout implements Binder<Movie>, PopupM
     @Override
     public void bind(Movie item, RecyclerAdapter.OnAdapterInteractionListener mListener) {
         this.movie = item;
-        iv_icon.setImageResource(R.drawable.kong);
+
+        GlideApp.with(((Activity) getContext())).load(R.drawable.walle).into(iv_icon);
+
         tv_title.setText(item.title());
         tv_subtitle.setText(item.subtitle());
         tv_genre.setText(item.genre());

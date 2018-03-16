@@ -119,7 +119,7 @@
         app:siRadius="8dp"
         app:siSquare="true"
         tools:background="@color/green_200"
-        tools:src="@drawable/kong" />
+        tools:src="@drawable/walle" />
 
     <TextView
         android:id="@+id/tv_time"

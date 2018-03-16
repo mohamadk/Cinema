@@ -51,13 +51,13 @@ public class ViewPagerTransform implements ViewPager.PageTransformer {
             }
         } else { // (1,+Infinity]
         }
-//        int pageWidth = view.getWidth();
-//        RecyclerView recyclerView=view.findViewById(R.id.rv_list);
-//        new RecyclerItemAnimator(recyclerView, (LinearLayoutManager) recyclerView.getLayoutManager(), .5f).animate(position);
     }
 
     private void findVisibleItems() {
         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
+        if(firstVisibleItemPosition>0){
+            firstVisibleItemPosition--;
+        }
         int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
         visibleItems = new View[lastVisibleItemPosition - firstVisibleItemPosition + 1];
 

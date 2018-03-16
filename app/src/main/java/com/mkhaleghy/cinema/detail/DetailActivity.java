@@ -27,6 +27,7 @@ import com.gigamole.navigationtabstrip.NavigationTabStrip;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.mkhaleghy.cinema.BaseActivity;
 import com.mkhaleghy.cinema.R;
+import com.mkhaleghy.cinema.app.GlideApp;
 import com.mkhaleghy.cinema.detail.models.Detail;
 import com.mkhaleghy.cinema.tools.DraggableConstraintLayout;
 import com.mkhaleghy.cinema.tools.RampImageView;
@@ -128,9 +129,9 @@ public class DetailActivity extends BaseActivity {
 
         spinner.attachDataSource(detail.bookTimes());
 
-
-//        GlideApp.with(this).load(detail.icon()).into(iv_icon);
-//        GlideApp.with(this).load(detail.cover()).into(iv_cover);
+        GlideApp.with(this).load(R.drawable.walle).into(iv_icon);
+        GlideApp.with(this).load(R.drawable.walle).into(iv_icon_cover);
+        GlideApp.with(this).load(R.drawable.walle).into(iv_cover);
     }
 
 
