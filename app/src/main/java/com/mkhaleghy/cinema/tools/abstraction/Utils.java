@@ -58,4 +58,8 @@ public class Utils {
         spannable.setSpan(new ForegroundColorSpan(colorId), 0, spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannable;
     }
+
+    public static int getActionBarSize() {
+        return Ci.context().getResources().getDimensionPixelSize(R.dimen.abc_action_bar_default_height_material);
+    }
 }

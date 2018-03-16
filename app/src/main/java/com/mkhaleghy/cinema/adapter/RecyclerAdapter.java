@@ -21,9 +21,14 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     List<Movie> items=new ArrayList<>();
     LayoutInflater inflater;
-
+    OnAdapterInteractionListener mListener;
     public RecyclerAdapter(Context context) {
         inflater = LayoutInflater.from(context);
+    }
+
+    public RecyclerAdapter(Context context,OnAdapterInteractionListener mListener) {
+        inflater = LayoutInflater.from(context);
+        this.mListener=mListener;
     }
 
     @Override
@@ -38,7 +43,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(items.get(position),mListener);
     }
 
 
@@ -61,8 +66,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             this.itemView = itemView;
         }
 
-        public void bind(Element item) {
-            ((Binder) itemView).bind(item);
+        public void bind(Element item, OnAdapterInteractionListener mListener) {
+            ((Binder) itemView).bind(item,mListener);
         }
     }
+
+    public interface OnAdapterInteractionListener{
+
+        void detailSelected();
+    }
+
 }

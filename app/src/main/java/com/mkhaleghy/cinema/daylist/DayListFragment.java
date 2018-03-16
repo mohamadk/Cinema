@@ -26,7 +26,7 @@ import me.everything.android.ui.overscroll.IOverScrollUpdateListener;
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator;
 
 
-public class DayListFragment extends BaseFragment {
+public class DayListFragment extends BaseFragment implements RecyclerAdapter.OnAdapterInteractionListener{
     public static final String TAG = "DayListFragment";
 
     private static final String PARAM_DATE = "date";
@@ -74,7 +74,7 @@ public class DayListFragment extends BaseFragment {
         recyclerView = mainView.findViewById(R.id.rv_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter = new RecyclerAdapter(getActivity()));
+        recyclerView.setAdapter(adapter = new RecyclerAdapter(getActivity(),this));
 
         RecyclerViewOverScrollDecorAdapterHandleAppbarLayout overScroll = new RecyclerViewOverScrollDecorAdapterHandleAppbarLayout(mListener.appbarLayout(), recyclerView);
         VerticalOverScrollBounceEffectDecorator decorator=new VerticalOverScrollBounceEffectDecorator(overScroll);
@@ -130,10 +130,19 @@ public class DayListFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void detailSelected() {
+        mListener.detailSelected();
+    }
+
 
     public interface OnFragmentInteractionListener {
         AppBarLayout appbarLayout();
 
         void stretch(float offset,int offsetInPx);
+
+        void detailSelected();
     }
+
+
 }

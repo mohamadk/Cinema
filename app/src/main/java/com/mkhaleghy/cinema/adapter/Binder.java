@@ -5,5 +5,5 @@ package com.mkhaleghy.cinema.adapter;
  */
 
 public interface Binder <T extends Element> {
-    void bind(T item);
+    void bind(T item, RecyclerAdapter.OnAdapterInteractionListener mListener);
 }

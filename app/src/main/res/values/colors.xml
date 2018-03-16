@@ -5,6 +5,7 @@
     <color name="colorAccent">#29bbed</color>
     <color name="black">#000</color>
     <color name="subtitle_color">#a8a6bf</color>
+    <color name="transparent">#00000000</color>
 
 
 </resources>
